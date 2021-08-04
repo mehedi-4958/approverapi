@@ -76,4 +76,20 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function profile() {
+        if (Auth::user()) {
+            $user = Auth::user();
+
+            return response()->json([
+                'success' => true,
+                'user' => $user,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'unable to show any profile',
+            ]);
+        }
+    }
 }

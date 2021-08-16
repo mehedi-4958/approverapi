@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Models\ApprovalItemMaster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,12 @@ Route::group(['prefix' => 'v1'], function (){
     Route::post('/change-password', [UserController::class, 'changePassword'])->middleware('auth:api');
 
     Route::get('/logout', [UserController::class, 'logout'])->middleware('auth:api');
-    //Route::get('/profile', [UserController::class, 'profile'])->middleware('auth:api');
-    
+
+    Route::post('create-item', [ApprovalItemMaster::class, 'store']);
+
+
 });
+
+//Route::apiResources([
+//    '/approval-items' => ApprovalItemMaster::class,
+//]);

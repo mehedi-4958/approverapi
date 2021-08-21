@@ -18,13 +18,14 @@ class CreateApprovalItemDetailsTable extends Migration
             $table->bigInteger('ApprovalItemID')->unsigned();
             $table->foreign('ApprovalItemID')->references('ID')->on('approval_item_masters');
             $table->string('Key');
-            $table->string('Label1');
-            $table->string('Label2');
-            $table->string('Label3');
-            $table->string('Label4');
+            $table->string('Label1')->nullable();
+            $table->string('Label2')->nullable();
+            $table->string('Label3')->nullable();
+            $table->string('Label4')->nullable();
             $table->double('Value');
-            $table->string('Prefix');
-            $table->string('Postfix');
+            $table->string('Prefix')->nullable();
+            $table->string('Postfix')->nullable();
+            $table->timestamps();
         });
     }
 

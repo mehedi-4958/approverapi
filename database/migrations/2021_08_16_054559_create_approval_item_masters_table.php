@@ -19,13 +19,14 @@ class CreateApprovalItemMastersTable extends Migration
             $table->string('Subtitle')->nullable();
             $table->text('Description')->nullable();
             $table->double('Amount');
-            $table->string('Thumb');
-            $table->string('LargeImage');
-            $table->string('Status');
-            $table->string('DeclinedReason');
-            $table->dateTime('Submitted At');
-            $table->dateTime('Approved At');
-            $table->dateTime('Declined At');
+            $table->string('Thumb')->nullable();
+            $table->string('LargeImage')->nullable();
+            $table->string('Status')->nullable();
+            $table->string('DeclinedReason')->nullable();
+            $table->dateTime('Submitted At')->nullable();
+            $table->dateTime('Approved At')->nullable();
+            $table->dateTime('Declined At')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -12,6 +12,6 @@ class ApprovalItemMaster extends Model
     protected $fillable = [
         'title',
         'amount',
-        'status',
+        //'status',
     ];
 }

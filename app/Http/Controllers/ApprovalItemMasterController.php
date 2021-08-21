@@ -35,7 +35,7 @@ class ApprovalItemMasterController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:4',
             'amount' => 'required',
-            'status' => 'required',
+            //'status' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -46,67 +46,81 @@ class ApprovalItemMasterController extends Controller
         }
         $input = $request->all();
         $approvalItem = ApprovalItemMaster::create($input);
+        $approvalItem->Status = 'Pending';
+        $approvalItem->save();
         return response()->json([
             'success' => true,
             'data' => $approvalItem,
         ]);
-//        $this->validate($request, [
-//            'title' => 'required|min:4',
-//            'amount' => 'required',
-//            'status' => 'required',
-//        ]);
 
-//        $approvalItem = new ApprovalItemMaster();
-//        $approvalItem->title = $request->title;
-//        $approvalItem->amount = $request->amount;
-//        $approvalItem->status = $request->status;
-
-
-//        if (auth('api')->user()->itemMaster()->save($approvalItem)){
-//            return response()->json([
-//                'success' => true,
-//                'data' => $approvalItem->toArray(),
-//            ]);
-//        } else {
-//            return  response()->json([
-//                'success' => false,
-//                'message' => 'Item could not be added',
-//            ], 500);
-//        }
     }
+
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ApprovalItemMaster  $approvalItemMaster
      * @return \Illuminate\Http\Response
      */
-    public function show(ApprovalItemMaster $approvalItemMaster)
+    public function showPending()
     {
-        return response()->json($approvalItemMaster, 200);
+            $items = ApprovalItemMaster::where('Status', 'Pending')->get();
+
+            return response()->json([
+                'message' => 'item found',
+                'data' => $items
+            ]);
+
     }
+
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showApproved()
+    {
+        $items = ApprovalItemMaster::where('Status', 'Approved')->get();
+
+        return response()->json([
+            'message' => 'item found',
+            'data' => $items
+        ]);
+
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showDeclined()
+    {
+        $items = ApprovalItemMaster::where('Status', 'Declined')->get();
+
+        return response()->json([
+            'message' => 'item found',
+            'data' => $items
+        ]);
+
+    }
+
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ApprovalItemMaster  $approvalItemMaster
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ApprovalItemMaster $approvalItemMaster)
+    public function update(Request $request)
     {
-        $updated = $approvalItemMaster->fill($request->all())->save();
+        $id = $request->input('ID');
+        $status = $request->input('Status');
+        $item = ApprovalItemMaster::where('ID',  $id)->update(['Status' => $status]);
 
-        if ($updated) {
-            return response()->json([
-                'success' => true,
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Item could not be updated',
-            ], 500);
-        }
+        return response()->json(['success' => true, 'message' => $status,]);
     }
 
     /**

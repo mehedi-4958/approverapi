@@ -48,6 +48,7 @@ class ApprovalItemDetailController extends Controller
         $approvalItemDetail = ApprovalItemDetail::create($input);
         return response()->json([
             'success' => true,
+            'message' => 'Item detail created',
             'data' => $approvalItemDetail,
         ]);
     }
@@ -63,8 +64,9 @@ class ApprovalItemDetailController extends Controller
         $item = ApprovalItemDetail::where('ID', $detail_id)->get();
 
         return response()->json([
-            'message' => 'item found',
-            'data' => $item
+            'success' => true,
+            'message' => 'Item Detail',
+            'data' => $item,
         ]);
 
     }

@@ -66,6 +66,7 @@ class ApprovalItemMasterController extends Controller
             $items = ApprovalItemMaster::where('Status', 'Pending')->get();
 
             return response()->json([
+                'success' => true,
                 'message' => 'item found',
                 'data' => $items
             ]);
@@ -84,6 +85,7 @@ class ApprovalItemMasterController extends Controller
         $items = ApprovalItemMaster::where('Status', 'Approved')->get();
 
         return response()->json([
+            'success' => true,
             'message' => 'item found',
             'data' => $items
         ]);
@@ -101,6 +103,7 @@ class ApprovalItemMasterController extends Controller
         $items = ApprovalItemMaster::where('Status', 'Declined')->get();
 
         return response()->json([
+            'success' => true,
             'message' => 'item found',
             'data' => $items
         ]);
@@ -116,8 +119,8 @@ class ApprovalItemMasterController extends Controller
      */
     public function update(Request $request)
     {
-        $id = $request->input('ID');
-        $status = $request->input('Status');
+        $id = $request->input('id');
+        $status = $request->input('status');
         $item = ApprovalItemMaster::where('ID',  $id)->update(['Status' => $status]);
 
         return response()->json(['success' => true, 'message' => $status,]);
